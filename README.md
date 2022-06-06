@@ -17,7 +17,7 @@ This document serves to archive the design process of our pen plotter such that 
 
 ### Analysis
 <p align="center">
-  <img src="/images/KinematicAnalysis.png">
+  <img width="600" src="/images/KinematicAnalysis.png">
 </p>
 
 ### Bill of Materials

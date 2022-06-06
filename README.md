@@ -11,6 +11,7 @@ For our ME-405 term project, we were tasked with designing and building a 2$1\ov
 This document serves to archive the design process of our pen plotter such that an individual could replicate it themselves if they so desired.
 ## Hardware Design
 ### Initial Design
+For our initial design, we proposed a system that uses two stepper motors to provide one rotational and one linear degree of freedom. One of the motors will be mounted to a baseboard and will rotate a power screw around one of the ends. The second motor will be used to spin the screw along its center axis, causing a 3D printed carrige holding a pen to translate radially. The half degree of freedom in our design will consist of a solenoid that will be mounted on this carrige and fixed to the pen, such that the pen can be lifted up off the paper as needed. 
 <p align="center">
   <img width="460" height="300" src="/images/SystemDrawing.png">
 </p>

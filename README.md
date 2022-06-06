@@ -16,6 +16,10 @@ This document serves to archive the design process of our pen plotter such that 
 </p>
 
 ### Analysis
+<p align="center">
+  <img src="/images/KinematicAnalysis.png">
+</p>
+
 ### Bill of Materials
 ## Software Design
 ### Main.py

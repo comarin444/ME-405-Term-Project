@@ -21,13 +21,23 @@ Since the input to the pen plotter's software will be Cartesian coordinates, we 
   <img width="600" src="/images/KinematicAnalysis.png">
 </p>
 
-To calculate the theta and alpha for a given pair of X and Y points, we adapted the Newton-Raphson method for approximating the roots of a function.
+To calculate the $\theta$ and $\alpha$ for a given pair of X and Y points, we adapted the Newton-Raphson method for approximating the roots of a function. This method first finds the slope of a tangent line at a "guessed" value of a given function. Then, the root of that line is calculated and a vertical line is drawn until it intersects with the function curve. At this point, a new tangent line is made and the process is repeated. This process can be visualized in the following GIF from Wikimedia (https://commons.wikimedia.org/wiki/File:Newton-Raphson_method.gif): 
 <p align="center">
-  <img width="600" src="/images/NewtonRaphsonEx.png">
+  <img width="600" src="/images/NewtonRaphsonEx.gif">
 </p>
 
+However, instead of calculating the roots of the function, we needed to find a vector of angles that is consistent with a given XY coordinate pair. When we adapted the Newton-Raphson method to this problem, we arrived at the following equation:
+
+$$\boldsymbol{\theta}_{n+1} = \boldsymbol{\theta}_n - \left(\frac{\partial \boldsymbol{g}\left(\boldsymbol{\theta}_n\right)}{\partial \boldsymbol{\theta}}\right)^{-1}\boldsymbol{g}\left(\boldsymbol{\theta}_n\right)$$
+
+where
+
+$$\boldsymbol{g}\left(\boldsymbol{\theta}\right) = \boldsymbol{x}_{\text{des}} - \boldsymbol{f}\left(\boldsymbol{\theta}\right)$$
+
+By calculating  $\boldsymbol{\theta}_{n+1}$ for every point, we can easily command the motors to go to a desired XY location. The GIF below demonstrates the plotter drawing a circle using angle values calculated using the Newton-Raphson method described above.
+
 <p align="center">
-  <img width="600" src="/images/DemoGIF.png">
+  <img width="600" src="/images/DrawingGIF.gif">
 </p>
 
 ### Bill of Materials

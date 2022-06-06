@@ -21,7 +21,7 @@ Since the input to the pen plotter's software will be Cartesian coordinates, we 
   <img width="600" src="/images/KinematicAnalysis.png">
 </p>
 
-To calculate the $\theta$ and $\alpha$ for a given pair of X and Y points, we adapted the Newton-Raphson method for approximating the roots of a function. This method first finds the slope of a tangent line at a "guessed" value of a given function. Then, the root of that line is calculated and a vertical line is drawn until it intersects with the function curve. At this point, a new tangent line is made and the process is repeated. This process can be visualized in the following GIF from Wikimedia (https://commons.wikimedia.org/wiki/File:Newton-Raphson_method.gif): 
+To calculate the $\theta$ and $\alpha$ for a given pair of X and Y points, we adapted the Newton-Raphson method for approximating the roots of a function. This method first finds the slope of a tangent line at a "guessed" value of a given function. Then, the root of that line is calculated and a vertical line is drawn until it intersects with the function curve. At this point, a new tangent line is drawn and the process is repeated. This process can be visualized in the following GIF from Wikimedia (https://commons.wikimedia.org/wiki/File:Newton-Raphson_method.gif): 
 <p align="center">
   <img width="600" src="/images/NewtonRaphsonEx.gif">
 </p>

@@ -15,9 +15,19 @@ This document serves to archive the design process of our pen plotter such that 
   <img width="460" height="300" src="/images/SystemDrawing.png">
 </p>
 
-### Analysis
+### System Analysis
+Since the input to the pen plotter's software will be Cartesian coordinates, we needed to first perform kinematic analysis of the system in order to ultimately calculate the inverse kinematic solution for every point. This analysis consisted of determining the equations of motion in terms of the rotations of the two motors, then calculating the system's jacobian matrix and inverse jacobian matrix.
 <p align="center">
   <img width="600" src="/images/KinematicAnalysis.png">
+</p>
+
+To calculate the theta and alpha for a given pair of X and Y points, we adapted the Newton-Raphson method for approximating the roots of a function.
+<p align="center">
+  <img width="600" src="/images/NewtonRaphsonEx.png">
+</p>
+
+<p align="center">
+  <img width="600" src="/images/DemoGIF.png">
 </p>
 
 ### Bill of Materials

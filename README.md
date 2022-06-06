@@ -11,6 +11,9 @@ For our ME-405 term project, we were tasked with designing and building a 2$1\ov
 This document serves to archive the design process of our pen plotter such that an individual could replicate it themselves if they so desired.
 ## Hardware Design
 ### Initial Design
+<p align="center">
+  <img width="460" height="300" src="/images/SystemDrawing.png">
+</p>
 
 ### Analysis
 ### Bill of Materials

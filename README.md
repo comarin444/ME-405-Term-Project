@@ -25,7 +25,9 @@ To aid in the design of our mechanical system, we drafted the parts in Solidwork
 <p align='center'>
   <img width="600" src = "/images/CAD.JPG">
 </p>
-  
+
+### Electronics
+
 ### Switches
 One feature we decided to implement in our machine were reference switches. We put a left reference switch for each motor, allowing it to automatically zero itself on powerup. As can be seen in the demo video, the machine will begin with a homing procedure, where it will go backwards until pressing each switch, and then move to a more central starting position. 
 
@@ -84,9 +86,11 @@ Once all of this has been completed, the motors are ready to run. Two tasks are 
 ### HPGL.py
 HPGL.py first reads raw HPGL file, which is produced by exporting a vector drawing from a suitable editor such as InkScape, and sorts the data into an array of x values, y values, and pen orientations (up or down). To smooth out straight lines when drawing the image, HPGL.py interpolates between positions that are far apart and updates the arrays of positional data. With these new values, HPGL.py uses the modified Newton-Raphson method (described above in System Analysis) to find the inverse kinematic solution for each point and writes the values to an external text document to prevent memory errors on the Nucleo microcontroller.
 ### Driver.py
-Driver.py is primarily responsible for reading and writing from the TMC4210 and TMC 2208 driver chips which control the two stepper motors. When a method is called from main.py, the program creates a 4-byte datagram consisting of the corresponding register address and positional data and writes the datagram to the TMC4201 via Serial Peripheral Interface (SPI). 
+Driver.py is primarily responsible for reading and writing from the TMC4210 and TMC 2208 driver chips which control the two stepper motors. When a method is called from main.py, the program creates a 4-byte datagram consisting of the corresponding register address and positional data and writes the datagram to the TMC4201 via Serial Peripheral Interface (SPI).
 ### Buzzer.py
 Buzzer.py stores the note sequence (frequencies and durations) of song and controls a PWM pin to play on the speaker.
+### cotask.py and task_share.py
+cotask.py and task_share.py create the framework that allows for the multitasking functionality and were provided to us by our instructor.
 ## Testing
 ### Demonstration Video
 Demo Video Link: https://youtu.be/BuNcyO3wXRc

@@ -1,7 +1,7 @@
 # ME 405 Term Project
 #### By: Cole Marin and Theo Philliber
 <p align="center">
-  <img width="800" src="/images/System.png">
+  <img width="800" src="/images/System.jpg">
 </p>
 ## Introduction
 For our ME-405 term project, we were tasked with designing and building a 2$1\over2$ degree of freedom pen plotter with the following constraints:
@@ -22,7 +22,7 @@ For our initial design, we proposed a system that uses two stepper motors to pro
 To aid in the design of our mechanical system, we drafted the parts in Solidworks. We ended up 3D printing most of our parts, so these models were converted to .STL files and printed in PLA. The wheel and rod connector weren't part of the initial CAD model, and created after the initial parts were printed.
 
 <p align='center'>
-  <img width="600" src = "/images/CAD.ong">
+  <img width="600" src = "/images/CAD.JPG">
 </p>
   
 

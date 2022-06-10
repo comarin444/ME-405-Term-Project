@@ -78,13 +78,15 @@ By calculating  $\boldsymbol{\theta}_{n+1}$ for every point, we can easily comma
 
 ## Software Design
 ### Main.py
-Handles initializing hardware, homes and writes to motors, defines tasks, etc.
+Main.py is the high-level program responsible for initilizing hardware, homing motors, and defining tasks. When it is run on start-up, one queue (posQueue) and two shares (pen_command and drawing_complete) are created. Next, the buzzer file (buzzer.py) is called to run as the hpgl file is simultaneously parsed by HPGL.py to pre-compute every target point in the drawing. This program also homes both motors by running each of them in the negative direction until they trip limit the switches that can be seen in the hardware section above.
+
+Once all of this has been completed, the motors are ready to run. Two tasks are created in main.py that allow for this to occur. First, taskRead handles the reading of the target points from HPGL.py and writes them to posQueue as needed. At the same time, taskMotor reads from the queue and calls driver.py in order to write the positons to the motor. Both of these tasks are given a priority of 1; however, taskmotor is called at twice the frequency of taskRead so that it can be accurate when checking if each position change has completed.
 ### HPGL.py
-Reads raw HPGL file, converts to lists of XYZ coords, calculates inverse kinematic solution via Newton Raphson method and writes values to text file  
+HPGL.py first reads raw HPGL file, which is produced by exporting a vector drawing from a suitable editor such as InkScape, and sorts the data into an array of x values, y values, and pen orientations (up or down). To smooth out straight lines when drawing the image, HPGL.py interpolates between positions that are far apart and updates the arrays of positional data. With these new values, HPGL.py uses the modified Newton-Raphson method (described above in System Analysis) to find the inverse kinematic solution for each point and writes the values to an external text document to prevent memory errors on the Nucleo microcontroller.
 ### Driver.py
-Writes and receives data from the TMC4210 and TMC2208
+Driver.py is primarily responsible for reading and writing from the TMC4210 and TMC 2208 driver chips which control the two stepper motors. When a method is called from main.py, the program creates a 4-byte datagram consisting of the corresponding register address and positional data and writes the datagram to the TMC4201 via Serial Peripheral Interface (SPI). 
 ### Buzzer.py
-Stores note sequence (frequencies and durations) of song, controls PWM pin to play on speaker.
+Buzzer.py stores the note sequence (frequencies and durations) of song and controls a PWM pin to play on the speaker.
 ## Testing
 ### Demonstration Video
 Demo Video Link: https://youtu.be/BuNcyO3wXRc

@@ -26,7 +26,23 @@ To aid in the design of our mechanical system, we drafted the parts in Solidwork
   <img width="600" src = "/images/CAD.JPG">
 </p>
   
+### Switches
+One feature we decided to implement in our machine were reference switches. We put a left reference switch for each motor, allowing it to automatically zero itself on powerup. As can be seen in the demo video, the machine will begin with a homing procedure, where it will go backwards until pressing each switch, and then move to a more central starting position. 
 
+<p align="center">
+  <img width="460" src="/images/LowerSwitch.jpg">
+</p>
+
+<p align="center">
+  <img width="460" src="/images/Motor.jpg">
+</p>
+
+### Bell/Whistle Feature - Speaker
+For our extra bell/whistle feature, we decided to implement a speaker that plays while the code loads. Our code precomputes all of the angles upon running, and stores the values in files which are read piecewise as the motors move. This initial process takes a while, so our speaker plays a song (currently "Take On Me", by A-ha) while it loads. The repetitions and speed of the song can be set in the main file. The speaker operates with PWM running at a 50% duty cycle. To change pitch, the frequency is altered. To create seperation between notes, allowing for more 'staccato' songs, the speaker is set to 0% duty for a moment and returned to 50% between each note. Additionally, the note durations are specified (quarter notes, half notes, etc.) in the buzzer code.
+
+<p align="center">
+  <img width="460" src="/images/Nucleo_Speaker.jpg">
+</p>
 
 
 ### System Analysis

@@ -3,6 +3,7 @@
 <p align="center">
   <img width="800" src="/images/System.jpg">
 </p>
+
 ## Introduction
 For our ME-405 term project, we were tasked with designing and building a 2$1\over2$ degree of freedom pen plotter with the following constraints:
 

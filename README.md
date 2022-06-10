@@ -71,6 +71,10 @@ By calculating  $\boldsymbol{\theta}_{n+1}$ for every point, we can easily comma
 </p>
 
 ### Bill of Materials
+
+<p align="center">
+  <img width="600" src="/images/BOM.jpg">
+</p>
 ## Software Design
 ### Main.py
 Handles initializing hardware, homes and writes to motors, defines tasks, etc.

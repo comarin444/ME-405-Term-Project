@@ -73,7 +73,7 @@ By calculating  $\boldsymbol{\theta}_{n+1}$ for every point, we can easily comma
 ### Bill of Materials
 
 <p align="center">
-  <img width="600" src="/images/BOM.jpg">
+  <img width="600" src="/images/BOM.JPG">
 </p>
 ## Software Design
 ### Main.py

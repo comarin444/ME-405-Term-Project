@@ -1,6 +1,8 @@
 # ME 405 Term Project
 #### By: Cole Marin and Theo Philliber
-##*INSERT PHOTO OF FINAL DESIGN HERE*
+<p align="center">
+  <img width="800" src="/images/System.png">
+</p>
 ## Introduction
 For our ME-405 term project, we were tasked with designing and building a 2$1\over2$ degree of freedom pen plotter with the following constraints:
 
@@ -15,6 +17,16 @@ For our initial design, we proposed a system that uses two stepper motors to pro
 <p align="center">
   <img width="460" height="300" src="/images/SystemDrawing.png">
 </p>
+
+### Modeling
+To aid in the design of our mechanical system, we drafted the parts in Solidworks. We ended up 3D printing most of our parts, so these models were converted to .STL files and printed in PLA. The wheel and rod connector weren't part of the initial CAD model, and created after the initial parts were printed.
+
+<p align='center'>
+  <img width="600" src = "/images/CAD.ong">
+</p>
+  
+
+
 
 ### System Analysis
 Since the input to the pen plotter's software will be Cartesian coordinates, we needed to first perform kinematic analysis of the system in order to ultimately calculate the inverse kinematic solution for every point. This analysis consisted of determining the equations of motion in terms of the rotations of the two motors, then calculating the system's jacobian matrix and inverse jacobian matrix.
@@ -51,5 +63,5 @@ Reads raw HPGL file, converts to lists of XYZ coords, calculates inverse kinemat
 Writes and receives data from the TMC4210 and TMC2208
 ## Testing
 ### Demonstration Video
-*INSERT VIDEO DEMO HERE*
+Demo Video Link: https://youtu.be/BuNcyO3wXRc
 ## Conclusion

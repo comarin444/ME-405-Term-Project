@@ -6,8 +6,9 @@ Created on Mon May 30 16:14:18 2022
 """
 
 import pyb
-import hpgl
+import hpgl, buzzer
 from driver import Driver
+import utime, time
 
 import gc, cotask, task_share
 # =============================================================================
@@ -19,10 +20,12 @@ import gc, cotask, task_share
 
 def taskMotorFun():
     # variable = list(variable)
-    x = 0 #posQueue.get()
-    y = 0 #posQueue.get()
+    solenoidPin.high()
+    x = 5 #posQueue.get()
+    y = 5 #posQueue.get()
     motor1.SET_X_TARGET(x)
     motor2.SET_X_TARGET(y)
+    solenoidPin.low()
     #x = 0
     #y = 0
     while True:
@@ -32,7 +35,7 @@ def taskMotorFun():
         #print((motor1.GET_X_ACTUAL()), x, motor1.GET_X_ACTUAL() == x)
         #print((motor2.GET_X_ACTUAL()), y, motor2.GET_X_ACTUAL() == y)
         
-        
+        #print(motor1.GET_X_ACTUAL(),motor2.GET_X_ACTUAL())
         if (abs(motor1.GET_X_ACTUAL() - x)<=1) & (abs(motor2.GET_X_ACTUAL()-y)<=1):
             motor1.READ_POS_END_INT(True)
             motor2.READ_POS_END_INT(True)
@@ -42,15 +45,18 @@ def taskMotorFun():
                 y = posQueue.get()
                 z = posQueue.get()
             
+            
+               
+                    
                 motor1.SET_X_TARGET(int(x))
                 motor2.SET_X_TARGET(int(y))
-           
                 if z == 1:
                     print('Pen Up')
                     solenoidPin.high()
                 elif z == 0:
                     print('Pen Down')
                     solenoidPin.low()
+        
         yield True
                 
 
@@ -96,14 +102,14 @@ def taskReadFun():
 
 
 if __name__ == "__main__":
-    
-    
+        
     
     # Create shares and Queues
     posQueue = task_share.Queue('i', 12, thread_protect=False, overwrite=False, name='posQueue')
     pen_command = task_share.Share('b', name='pen_command')
     drawing_complete = task_share.Share('b', name='drawing_complete')
     
+    #buzzer.play(1, 2)
     #UNCOMMENT THIS TO RECALCULATE HPGL FILE
     pen_list = hpgl.run()
     
@@ -126,6 +132,10 @@ if __name__ == "__main__":
     CS1 = pyb.Pin(pyb.Pin.cpu.C6, mode=pyb.Pin.OUT_PP, value=1)
     CS2 = pyb.Pin(pyb.Pin.cpu.C7, mode=pyb.Pin.OUT_PP, value=1)
     
+    #initialize reference switch pins
+    thetaSwitch = pyb.Pin(pyb.Pin.cpu.A5, mode=pyb.Pin.IN, value=1)
+    alphaSwitch = pyb.Pin(pyb.Pin.cpu.B0, mode=pyb.Pin.IN, value=1)
+    
     #initialize solenoid pin
     solenoidPin = pyb.Pin(pyb.Pin.cpu.C0, mode=pyb.Pin.OUT_PP, value=0)
     
@@ -138,10 +148,10 @@ if __name__ == "__main__":
    #==============================================
    # Create and initialize motor objects
     motor1.ENN()
-    motor1.SET_V_MIN(32)
+    motor1.SET_V_MIN(2)
     motor1.SET_V_MAX(500)
     motor1.SET_PULSE_RAMP_DIV()
-    motor1.SET_A_MAX(512)
+    motor1.SET_A_MAX(1024)
     motor1.SET_PMUL_PDIV()
     motor1.RAMP_MODE()
     motor1.INTERRUPT_MASK()
@@ -149,7 +159,7 @@ if __name__ == "__main__":
     
     
     motor2.ENN()
-    motor2.SET_V_MIN(32)
+    motor2.SET_V_MIN(2)
     motor2.SET_V_MAX(500)
     motor2.SET_PULSE_RAMP_DIV()
     motor2.SET_A_MAX(512)
@@ -157,25 +167,50 @@ if __name__ == "__main__":
     motor2.RAMP_MODE()
     motor2.INTERRUPT_MASK()
     motor2.ZERO()
-
-    #=============================================
+    
+ 
     
     
-    #============================================
+    
     # Home motors
-    # Set motors to velocity mode, send backwards until reference switch is pressed
-    # Then return to ramp mode
-#    
-#    motor1.VEL_MODE()
-#    motor1.SET_V_TARGET(-5)
-#    #When stop interrupt is set to 1, 
-#    while not motor1.READ_STOP_INT():
-#        pass
-#    motor1.ZERO()
-#    motor1.RAMP_MODE()
-#    motor1.SET_X_TARGET(0.2)
-    #=============================================
+    solenoidPin.high()
+    motor1.VEL_MODE()
+    motor2.VEL_MODE()
+    motor1.SET_V_TARGET(-5)
+    motor2.SET_V_TARGET(-350)
+    acount = 0
+    tcount = 0
+    motor1_homed = False
+    motor2_homed = False
+    while True:
+        if thetaSwitch.value():
+            tcount+=1
+        elif not thetaSwitch.value():
+            tcount = 0
+        if alphaSwitch.value():
+            acount+=1
+        elif not alphaSwitch.value():
+            acount = 0
+        if tcount == 20:
+            motor1.SET_V_TARGET(0)
+            motor1_homed = True
+            print("motor 1 is homed")
+        if acount == 20:
+            motor2.SET_V_TARGET(0)
+            motor2_homed = True
+            print("motor 2 is homed")
+        if motor1_homed and motor2_homed:
+            solenoidPin.low()
+            break
+            
+        
+    print("done homing")
+    motor1.ZERO()
+    motor2.ZERO()
+    motor1.RAMP_MODE()
+    motor2.RAMP_MODE()
     
+
     #Create tasks and add to task list
     taskRead    = cotask.Task(taskReadFun, name='taskRead', priority=1, period=20, 
                             profile=None, trace=False)

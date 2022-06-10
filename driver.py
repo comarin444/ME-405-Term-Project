@@ -109,7 +109,9 @@ class Driver:
         
     def READ_STOP_INT(self):
         databytes = self.read_datagram(self.ADDR_INTERRUPT_MASK)
+        print(databytes)
         datagram = (databytes[0]<<24)|(databytes[1]<<16)|(databytes[2]<<8)|databytes[3]
+        
         # Returns 1 if position has been reached and 0 if not
         if (datagram & 1<<3):
             self.write_datagram(self.ADDR_INTERRUPT_MASK, datagram|(1<<3))

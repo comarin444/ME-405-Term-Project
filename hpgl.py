@@ -29,7 +29,7 @@ def NewtonRaphson(theta, X, n, thresh=1e-5):
 def run():
     
     #Make sure filepath matches .HPGL file name
-    file = open('line.hpgl', 'r')
+    file = open('quartercircle.hpgl', 'r')
     rawdata = file.read()
     #Seperate commands
     rawdata = (rawdata.split(';')[3:-4])
@@ -48,7 +48,7 @@ def run():
     #1016 = default scaling (dpi) from InkScape
     xscaling = 1016
     yscaling = xscaling
-    xoffset = 5
+    xoffset = 25
     yoffset = xoffset
     
     for i in range(len(x_coords)):
@@ -72,6 +72,9 @@ def run():
     n = 8 #pitch
     theta = np.array([.125,6])
     z_val = []
+    x_file = open("theta_positions.txt", "w")
+    y_file = open("alpha_positions.txt", "w")
+    
     for i in range(0, len(x_coords)-1):
         x = x_coords[i+1]-x_coords[i]
         y = y_coords[i+1]-y_coords[i]
@@ -99,12 +102,12 @@ def run():
                 
                 theta = NewtonRaphson(theta, np.array([[x_val],[y_val]]), n)
                 print(theta)
-                x_file = open("theta_positions.txt", "a")
+                #x_file = open("theta_positions.txt", "a")
                 x_file.write(str(theta[0]) + "\n")
-                x_file.close()
-                y_file = open("alpha_positions.txt", "a")
+                #x_file.close()
+                #y_file = open("alpha_positions.txt", "a")
                 y_file.write(str(theta[1]) + "\n")
-                y_file.close()
+                #y_file.close()
                 #z_file = open("pen_positions.txt", "a")
                 #z_file.write(z_val + "\n")
                 #z_file.close()
@@ -122,20 +125,24 @@ def run():
             
         theta = NewtonRaphson(theta, np.array([[x_val],[y_val]]), n)
         print(theta, z_val[i])
-        
-        x_file = open("theta_positions.txt", "a")
         x_file.write(str(theta[0]) + "\n")
-        x_file.close()
-        y_file = open("alpha_positions.txt", "a")
         y_file.write(str(theta[1]) + "\n")
-        y_file.close()
+# =============================================================================
+#         x_file = open("theta_positions.txt", "a")
+#         x_file.write(str(theta[0]) + "\n")
+#         x_file.close()
+#         y_file = open("alpha_positions.txt", "a")
+#         y_file.write(str(theta[1]) + "\n")
+#         y_file.close()
+# =============================================================================
         #z_file = open("pen_positions.txt", "a")
         #z_file.write(z_val + "\n")
         #z_file.close()
         
         
         
-        
+    x_file.close()
+    y_file.close()    
     print(z_val)
     return (z_val)
         

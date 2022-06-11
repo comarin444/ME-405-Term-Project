@@ -5,6 +5,9 @@ Created on Thu Apr 21 08:25:23 2022
 @author: melab15
 reference voltage = 0.7V
 """
+
+# define Driver class that is used to create motor objects for each of the
+# two stepper motors used for the project
 class Driver:
     
     def __init__(self, V_MIN, V_MAX, pulse_div, ramp_div, A_MAX, EN, CS, SPI, CLK):
@@ -56,16 +59,14 @@ class Driver:
         self.ADDR_MOT1R              = 0b01111110
         
         
-    
+        # calculates a valid pair of PMUL and PDIV based through iteration
         self.p = self.A_MAX/(128*2**(self.ramp_div - self.pulse_div))
         for self.PDIV in range(0,13):
             self.PMUL = int(0.99*self.p*(2**3)*(2**self.PDIV))
             if self.PMUL >= 128 and self.PMUL <= 255:
                 break
 
-
-
-
+    # writes datagram to TMC4210
     def write_datagram(self, addr, value):
         datagram = bytearray(4)
         datagram[0] = addr
@@ -77,6 +78,7 @@ class Driver:
         self.CS.high()
         return datagram
     
+    # reads datagram from TMC4210
     def read_datagram(self, addr):
         datagram = bytearray(4)
         datagram[0] = (addr|1)
@@ -88,15 +90,15 @@ class Driver:
         self.CS.high()
         return datagram
     
-    
+    # sets EN pin low to enable TMC2208    
     def ENN(self):
-        #set EN pin low to enable TMC2208
         self.EN.low()
         return self.write_datagram(self.ADDR_IF_CONFIG, 0b00100000)
     
     def INTERRUPT_MASK(self):
         return self.write_datagram(self.ADDR_INTERRUPT_MASK, 0b00001001<<8)
     
+    # determines if motors have reached target position
     def READ_POS_END_INT(self, reset=False):
         databytes = self.read_datagram(self.ADDR_INTERRUPT_MASK)
         datagram = (databytes[0]<<24)|(databytes[1]<<16)|(databytes[2]<<8)|databytes[3]
@@ -119,7 +121,7 @@ class Driver:
         else: return 0
          
 
-
+    # sets ramp mode
     def RAMP_MODE(self):
         return self.write_datagram(self.ADDR_REF_CONF, 0b110<<8)
         
@@ -149,7 +151,7 @@ class Driver:
         #Writing to X_ACTUAL register will overwrite value, used with reference switches
         return self.write_datagram(self.ADDR_X_ACTUAL, X_ACTUAL)
     
-    
+    # sets velocity mode
     def VEL_MODE(self):
         return self.write_datagram(self.ADDR_REF_CONF, 0b11000000010)
     
@@ -182,48 +184,10 @@ class Driver:
     
     def SET_PULSE_RAMP_DIV(self):
         return self.write_datagram(self.ADDR_PULSE_RAMP_DIV, 0b0110011000000000)
-        #return self.write_datagram(self.ADDR_PULSE_RAMP_DIV, 0b0101010100000000)
-        #AMAX = 96
-        #128/6
     
     def GET_TYPE_VERSION(self):
         return self.read_datagram(self.ADDR_TYPE_VERSION)
     
-# =============================================================================
-#     
-#     def READ_CONFIG(self):
-#         
-#         self.CS.low()
-#         buffer2 = bytearray([0b01101001,
-#                              0b00000000,
-#                              0b00000000,
-#                              0b00000000])
-#         self.SPI.send_recv(buffer2, buffer2)
-#         self.CS.high()
-#         
-#         self.CS.low()
-#         buffer = bytearray([0b00010101,
-#                             0b00000000,
-#                             0b00000000,
-#                             0b00000000])
-#         self.SPI.send_recv(buffer, buffer)
-#                             
-#         self.CS.high()
-#         return buffer
-# =============================================================================
-                      
     def print_datagram(self, datagram):
         for idx,byte in enumerate(datagram):
             print(f"b{3-idx}: {byte:#010b} {byte:#04x}")
-                    
-    # 24 bit
-
-        
-        
-        
-
-
-#    myDriver.SET_V_TARGET(256*2)
-#    myDriver.SET_V_TARGET(0)
-#    utime.sleep(2)
-        

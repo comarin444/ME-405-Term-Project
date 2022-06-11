@@ -35,7 +35,7 @@ Pinouts between Nucelo microcontroller and motor driver board.
 
 Wiring diagram for additional hardware including reference switches and solenoid.
 <p align="center">
-  <img width="460" src="/images/WiringDiagram.png">
+  <img width="700" src="/images/WiringDiagram.png">
 </p>
 
 

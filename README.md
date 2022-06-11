@@ -102,6 +102,11 @@ Driver.py is primarily responsible for reading and writing from the TMC4210 and 
 Buzzer.py stores the note sequence (frequencies and durations) of song and controls a PWM pin to play on the speaker.
 ### cotask.py and task_share.py
 cotask.py and task_share.py create the framework that allows for the multitasking functionality and were provided to us by our instructor.
+## State Transition Diagram
+<p align="center">
+  <img width="480" src="/images/FSM.jpg">
+</p>
+
 ## Testing
 ### Demonstration Video
 Demo Video Link: https://youtu.be/BuNcyO3wXRc
@@ -111,9 +116,3 @@ As can be seen from our video, we haven't gotten the machine to the point where 
 Another area that could be greatly improved is the hardware design of the machine. The motor that rotates the entire arm has to move lots of inertia, and it rotates very quickly. We should have added a gear reduction to allow us to run the motor at a higher speed, as trying to move a heavy load a small amount is difficult. The second way would be to reduce the inertia of the arm with a smaller design and wheel. Third would be to design the solenoid/pen holder better, as the heat from the solenoid loosened the press fit and the pen had lots of backlash.
 
 Despite all of these shortcomings, we have still learned lots from this project. We were able to fully design a system which could draw shapes from vector images. We learned about hardware design and part procurement, which presented their own challenges. We also learned about controlling motors and processing image files. Finally, we improved our ability to simulate mechanisms and perform kinematic analysis. 
-
-## State Transition Diagram
-
-<p align="center">
-  <img width="480" src="/images/FSM.jpg">
-</p>

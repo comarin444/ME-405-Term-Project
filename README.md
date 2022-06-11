@@ -102,9 +102,14 @@ Driver.py is primarily responsible for reading and writing from the TMC4210 and 
 Buzzer.py stores the note sequence (frequencies and durations) of song and controls a PWM pin to play on the speaker.
 ### cotask.py and task_share.py
 cotask.py and task_share.py create the framework that allows for the multitasking functionality and were provided to us by our instructor.
-## State Transition Diagram
+### State Transition Diagram
 <p align="center">
   <img width="480" src="/images/FSM.jpg">
+</p>
+
+### Task Diagram
+<p align="center">
+  <img width="480" src="/images/TaskDiagram.png">
 </p>
 
 ## Testing

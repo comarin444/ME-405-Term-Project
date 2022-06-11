@@ -30,12 +30,12 @@ To aid in the design of our mechanical system, we drafted the parts in Solidwork
 Pinouts between Nucelo microcontroller and motor driver board.
 
 <p align="center">
-  <img width="460" src="/images/pinouts.png">
+  <img width="800" src="/images/pinouts.png">
 </p>
 
 Wiring diagram for additional hardware including reference switches and solenoid.
 <p align="center">
-  <img width="700" src="/images/WiringDiagram.png">
+  <img width="800" src="/images/WiringDiagram.png">
 </p>
 
 

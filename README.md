@@ -27,6 +27,17 @@ To aid in the design of our mechanical system, we drafted the parts in Solidwork
 </p>
 
 ### Electronics
+Pinouts between Nucelo microcontroller and motor driver board.
+
+<p align="center">
+  <img width="460" src="/images/pinouts.png">
+</p>
+
+Wiring diagram for additional hardware including reference switches and solenoid.
+<p align="center">
+  <img width="460" src="/images/WiringDiagram.png">
+</p>
+
 
 ### Switches
 One feature we decided to implement in our machine were reference switches. We put a left reference switch for each motor, allowing it to automatically zero itself on powerup. As can be seen in the demo video, the machine will begin with a homing procedure, where it will go backwards until pressing each switch, and then move to a more central starting position. 
